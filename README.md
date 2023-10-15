@@ -4,12 +4,25 @@
 
 This benchmark is created to compare performance of different hash tables with different hash functions on in-memory aggregation scenario.
 
-Benchmark is based on real anonimized web analytics data from (Yandex.Metrica dataset)[https://clickhouse.com/docs/en/getting-started/example-datasets/metrica].
+Benchmark is based on real anonimized web analytics data from [Yandex.Metrica dataset](https://clickhouse.com/docs/en/getting-started/example-datasets/metrica).
 
-Benchmark tries to compute mapping for each unique key to count from key column from dataset, simmilar to such SQL query `SELECT column, count() FROM hits GROUP BY column`.
+Benchmark tries to compute mapping for each unique key to count for columns from dataset, similar to such SQL query `SELECT column, count() FROM hits GROUP BY column`.
 
-Because each column has different cardinality performance
+There are two different scenarios:
 
+1. When hash table fits in CPU caches. Performance of hash table operations depends on arithmetic operations like hash function calculation, computing slot location, elements comparisons, and other operations that are required for specific hash table memory layout.
+
+2. When hash table does not fit in CPU caches. For such a scenario, number of random memory accesses per operation is the most important factor for hash table performance.
+
+Here are some general recommendations that can be applied to all hash table implementations:
+
+1. You should avoid complex logic on hot path of your hash table operations. Because if there are a lot of instructions on hot path, hash table will work slow when all data fits in CPU caches.
+2. You should not store a lot of additional metadata in your hash table, because, otherwise, your hash table will stop fitting into CPU caches quickly.
+3. You should decrease the number of random memory accesses in your hash table operations because otherwise, it will significantly slow down your hash table implementation after hash table does not fit in CPU caches. Ideally, you should have one memory access for each operation. This also implies that you cannot make complex layouts (2 hash tables, keys and values separation, complex metadata) because usually, this will require additional memory accesses during operations.
+
+Additionally, for the aggregation scenario, you need to consider not only lookup/insert latency but also memory size of hash table. If during aggregation hash table does not fit in RAM memory, the aggregation algorithm should switch implementation from in-memory aggregation to external memory aggregation, but this will work significantly slower.
+
+Because each column in benchmark has different cardinality and distribution, it is possible to check how different hash tables with different hash functions work in read-world data.
 
 ## Examples
 
