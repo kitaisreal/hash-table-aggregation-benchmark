@@ -14,7 +14,6 @@ scenario on read-world data.
 There are two different scenarios:
 
 1. When hash table fits in CPU caches. Performance of hash table operations depends on arithmetic operations like hash function calculation, computing slot location, elements comparisons, and other operations that are required for specific hash table memory layout.
-
 2. When hash table does not fit in CPU caches. For such a scenario, number of random memory accesses per operation is the most important factor for hash table performance.
 
 Here are some general recommendations that can be applied to all hash table implementations:
@@ -27,7 +26,29 @@ Additionally, for the aggregation scenario, you need to consider not only lookup
 
 ## Examples
 
+Benchmark itself is a `hash_table_aggregation_benchmark` binary that takes `hash_table` `hash_function` and `file` in Clickhouse
+[RowBinaryWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats#rowbinarywithnamesandtypes) format.
+
+```
+hash_table_aggregation_benchmark absl_hash_map absl_hash data/WatchID.bin
+
+Hash table type: absl_hash_map
+Hash function type: absl_hash
+Key type name: Int64
+File name: data/WatchID.bin
+Keys size: 99997497
+Hash table: absl::flat_hash_map
+Hash function: absl::Hash
+Hash table size: 99997493
+Elapsed: 10.7699 (9284909 elem/sec.)
+Memory usage: 2285594168
+```
+
+`benchmark.py` is just a wrapper around `hash_table_aggregation_benchmark` that provides ability to specify multiple hash tables, hash functions and files
+and run `hash_table_aggregation_benchmark` for each combination.
+
 Run benchmark to test Abseil Hash Map using Abseil hash function for WatchID column:
+
 ```
 ./benchmark.py --hash-tables="absl_hash_map" --hash-functions="absl_hash" --files="data/WatchID.bin"
 
