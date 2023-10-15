@@ -80,7 +80,7 @@ Unique keys size: 99997493
 +--------------------+-----------------+---------------+--------------+
 ```
 
-Run benchmark to test ClickHouse Hash Map and Abseil Hash Map using Abseil hash function and standard hash function for `WatchID` and `UserID` columns.
+Run benchmark to test ClickHouse Hash Map and Abseil Hash Map using Abseil hash function and standard hash function for `WatchID` and `UserID` columns:
 
 ```
 ./benchmark.py --hash-tables="ch_hash_map" --hash-functions="absl_hash, std_hash" --files="data/WatchID.bin, data/UserID.bin"
@@ -112,8 +112,8 @@ Unique keys size: 17630976
 +---------------------+---------------+---------------+--------------+
 ```
 
-You can extract columns from other datasets or generate columns using `clickhouse-local` (it is downloaded as part of the benchmark run, or you can download it manually).
-For example, you can generate a column with 150 million random numbers and run a benchmark to check ClickHouse HashMap and Abseil HashMap against this column.
+You can extract columns from other datasets or generate columns using `clickhouse-local` (it is downloaded as part of the benchmark data load, or you can download it manually).
+For example, you can generate a column with 150 million random numbers and run a benchmark to check ClickHouse Hash Map and Abseil Hash Map against this column:
 
 ```
 ./clickhouse local --multiquery "INSERT INTO TABLE FUNCTION file('RandomNumbers.bin', RowBinaryWithNamesAndTypes) SELECT rand64() FROM numbers_mt(150000000);"
