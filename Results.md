@@ -4,6 +4,7 @@ Results for different platforms.
 
 ## X86-64 results on c6a.4xlarge:
 
+```
 File: data/WatchID.bin
 Key type: Int64
 Keys size: 99997497
@@ -214,8 +215,11 @@ Unique keys size: 19
 | std::unordered_map           | absl::Hash      |      0.34     |     3.27 MiB |
 +------------------------------+-----------------+---------------+--------------+
 
+```
+
 ## ARM results on c6a.4xlarge:
 
+```
 File: data/WatchID.bin
 Key type: Int64
 Keys size: 99997497
@@ -425,3 +429,4 @@ Unique keys size: 19
 | std::unordered_map           | ClickHouse hash |      0.99     |     2.68 MiB |
 | std::unordered_map           | absl::Hash      |      0.79     |     2.68 MiB |
 +------------------------------+-----------------+---------------+--------------+
+```
