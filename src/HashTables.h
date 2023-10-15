@@ -3,7 +3,6 @@
 #include <string>
 #include <unordered_map>
 
-#include <AggregationHashTable/GroupHashTable.h>
 #include <ClickHouseHashTable/HashMap.h>
 #include <absl/container/flat_hash_map.h>
 #include <hopscotch-map/include/tsl/hopscotch_map.h>
