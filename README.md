@@ -283,5 +283,4 @@ Add new hash function in `src/HashFunctions.h` and update `benchmark.py`.
 
 # Contacts
 
-TODO:
-For additional information
+If you have any questions or suggestions you can contact me at kitaetoya@gmail.com.
