@@ -4,9 +4,9 @@
 #include <vector>
 
 #include "defines.h"
-#include "hash_functions.h"
-#include "hash_tables.h"
-#include "utils.h"
+#include "Utils.h"
+#include "HashFunctions.h"
+#include "HashTables.h"
 
 template <typename Map>
 struct VoidInitialization

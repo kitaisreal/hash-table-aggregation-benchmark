@@ -57,25 +57,25 @@ if __name__ == "__main__":
         description="Runs hash table aggregation benchmark",
     )
     parser.add_argument(
-        "-hash-tables",
+        "--hash-tables",
         "-ht",
         default=", ".join(HASH_TABLES),
         help="Hash tables to benchmark",
     )
     parser.add_argument(
-        "-hash-functions",
+        "--hash-functions",
         "-hf",
         default=", ".join(HASH_FUNCTIONS),
         help="Hash functions to benchmark",
     )
     parser.add_argument(
-        "-files", "-f", default=", ".join(FILES), help="Files for benchmark"
+        "--files", "-f", default=", ".join(FILES), help="Files for benchmark"
     )
     parser.add_argument(
-        "-runs", "-r", type=int, default=MEASURE_RUNS, help="Number of measure runs"
+        "--runs", "-r", type=int, default=MEASURE_RUNS, help="Number of measure runs"
     )
     parser.add_argument(
-        "-debug", action="store_true", help="Run benchmark in debug mode"
+        "--debug", action="store_true", help="Run benchmark in debug mode"
     )
 
     args = parser.parse_args()
