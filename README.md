@@ -25,7 +25,7 @@ Additionally, for the aggregation scenario, you need to consider not only lookup
 
 ## Examples
 
-Benchmark itself is a `hash_table_aggregation_benchmark` binary that takes `hash_table` `hash_function` and `file` in Clickhouse
+Benchmark itself is a `hash_table_aggregation_benchmark` binary that takes `hash_table`, `hash_function`, and `file` in ClickHouse
 [RowBinaryWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats#rowbinarywithnamesandtypes) format and runs in-memory aggregation.
 
 ```
@@ -46,7 +46,7 @@ Memory usage: 2285594168
 `benchmark.py` is just a wrapper around `hash_table_aggregation_benchmark` that provides the ability to specify multiple hash tables, hash functions, and files
 and run `hash_table_aggregation_benchmark` for each combination.
 
-Run benchmark to test Abseil Hash Map using Abseil hash function for WatchID column:
+Run benchmark to test Abseil Hash Map using Abseil hash function for `WatchID` column:
 
 ```
 ./benchmark.py --hash-tables="absl_hash_map" --hash-functions="absl_hash" --files="data/WatchID.bin"
@@ -80,7 +80,7 @@ Unique keys size: 99997493
 +--------------------+-----------------+---------------+--------------+
 ```
 
-Run benchmark to test ClickHouse Hash Map and Abseil hash table using Abseil hash function and standard hash function for `WatchID` and `UserID` columns.
+Run benchmark to test ClickHouse Hash Map and Abseil Hash Map using Abseil hash function and standard hash function for `WatchID` and `UserID` columns.
 
 ```
 ./benchmark.py --hash-tables="ch_hash_map" --hash-functions="absl_hash, std_hash" --files="data/WatchID.bin, data/UserID.bin"
