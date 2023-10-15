@@ -56,9 +56,9 @@ Key type: Int64
 Keys size: 99997497
 Unique keys size: 99997493
 +---------------------+---------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table          | Hash Function | Elapsed (sec) | Memory Usage |
 +---------------------+---------------+---------------+--------------+
-| absl::flat_hash_map | absl::Hash | 10.77 | 2.13 GiB |
+| absl::flat_hash_map | absl::Hash    |     10.77     |     2.13 GiB |
 +---------------------+---------------+---------------+--------------+
 ```
 
@@ -72,11 +72,11 @@ Key type: Int64
 Keys size: 99997497
 Unique keys size: 99997493
 +--------------------+-----------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table         | Hash Function   | Elapsed (sec) | Memory Usage |
 +--------------------+-----------------+---------------+--------------+
-| ClickHouse HashMap | std::hash | 6.14 | 4.00 GiB |
-| ClickHouse HashMap | ClickHouse hash | 6.98 | 4.00 GiB |
-| ClickHouse HashMap | absl::Hash | 6.55 | 4.00 GiB |
+| ClickHouse HashMap | std::hash       |      6.14     |     4.00 GiB |
+| ClickHouse HashMap | ClickHouse hash |      6.98     |     4.00 GiB |
+| ClickHouse HashMap | absl::Hash      |      6.55     |     4.00 GiB |
 +--------------------+-----------------+---------------+--------------+
 ```
 
@@ -90,12 +90,12 @@ Key type: Int64
 Keys size: 99997497
 Unique keys size: 99997493
 +---------------------+---------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table          | Hash Function | Elapsed (sec) | Memory Usage |
 +---------------------+---------------+---------------+--------------+
-| ClickHouse HashMap | absl::Hash | 6.56 | 4.00 GiB |
-| ClickHouse HashMap | std::hash | 6.19 | 4.00 GiB |
-| absl::flat_hash_map | absl::Hash | 10.53 | 2.13 GiB |
-| absl::flat_hash_map | std::hash | 9.31 | 2.13 GiB |
+| ClickHouse HashMap  | absl::Hash    |      6.56     |     4.00 GiB |
+| ClickHouse HashMap  | std::hash     |      6.19     |     4.00 GiB |
+| absl::flat_hash_map | absl::Hash    |     10.53     |     2.13 GiB |
+| absl::flat_hash_map | std::hash     |      9.31     |     2.13 GiB |
 +---------------------+---------------+---------------+--------------+
 
 File: data/UserID.bin
@@ -103,12 +103,12 @@ Key type: Int64
 Keys size: 99997497
 Unique keys size: 17630976
 +---------------------+---------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table          | Hash Function | Elapsed (sec) | Memory Usage |
 +---------------------+---------------+---------------+--------------+
-| ClickHouse HashMap | absl::Hash | 1.96 | 1.00 GiB |
-| ClickHouse HashMap | std::hash | 1.86 | 1.00 GiB |
-| absl::flat_hash_map | absl::Hash | 2.82 | 547.74 MiB |
-| absl::flat_hash_map | std::hash | 2.71 | 547.62 MiB |
+| ClickHouse HashMap  | absl::Hash    |      1.96     |     1.00 GiB |
+| ClickHouse HashMap  | std::hash     |      1.86     |     1.00 GiB |
+| absl::flat_hash_map | absl::Hash    |      2.82     |   547.74 MiB |
+| absl::flat_hash_map | std::hash     |      2.71     |   547.62 MiB |
 +---------------------+---------------+---------------+--------------+
 ```
 
@@ -123,14 +123,14 @@ Key type: UInt64
 Keys size: 150000000
 Unique keys size: 150000000
 +---------------------+-----------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table          | Hash Function   | Elapsed (sec) | Memory Usage |
 +---------------------+-----------------+---------------+--------------+
-| ClickHouse HashMap | std::hash | 11.30 | 8.00 GiB |
-| ClickHouse HashMap | ClickHouse hash | 13.08 | 8.00 GiB |
-| ClickHouse HashMap | absl::Hash | 12.01 | 8.00 GiB |
-| absl::flat_hash_map | std::hash | 15.72 | 4.25 GiB |
-| absl::flat_hash_map | ClickHouse hash | 17.98 | 4.25 GiB |
-| absl::flat_hash_map | absl::Hash | 17.58 | 4.25 GiB |
+| ClickHouse HashMap  | std::hash       |     11.30     |     8.00 GiB |
+| ClickHouse HashMap  | ClickHouse hash |     13.08     |     8.00 GiB |
+| ClickHouse HashMap  | absl::Hash      |     12.01     |     8.00 GiB |
+| absl::flat_hash_map | std::hash       |     15.72     |     4.25 GiB |
+| absl::flat_hash_map | ClickHouse hash |     17.98     |     4.25 GiB |
+| absl::flat_hash_map | absl::Hash      |     17.58     |     4.25 GiB |
 +---------------------+-----------------+---------------+--------------+
 ```
 
@@ -218,15 +218,15 @@ Key type: Int64
 Keys size: 99997497
 Unique keys size: 99997493
 +------------------------------+-----------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table                   | Hash Function   | Elapsed (sec) | Memory Usage |
 +------------------------------+-----------------+---------------+--------------+
-| ClickHouse HashMap | absl::Hash | 6.79 | 4.00 GiB |
-| absl::flat_hash_map | absl::Hash | 10.24 | 2.13 GiB |
-| tsl::hopscotch_map | absl::Hash | 16.21 | 3.00 GiB |
-| ankerl::unordered_dense::map | absl::Hash | 13.35 | 2.49 GiB |
-| ska::flat_hash_map | absl::Hash | 11.12 | 6.00 GiB |
-| ska::bytell_hash_map | absl::Hash | 15.11 | 2.13 GiB |
-| std::unordered_map | absl::Hash | 60.68 | 5.23 GiB |
+| ClickHouse HashMap           | absl::Hash      |      6.79     |     4.00 GiB |
+| absl::flat_hash_map          | absl::Hash      |     10.24     |     2.13 GiB |
+| tsl::hopscotch_map           | absl::Hash      |     16.21     |     3.00 GiB |
+| ankerl::unordered_dense::map | absl::Hash      |     13.35     |     2.49 GiB |
+| ska::flat_hash_map           | absl::Hash      |     11.12     |     6.00 GiB |
+| ska::bytell_hash_map         | absl::Hash      |     15.11     |     2.13 GiB |
+| std::unordered_map           | absl::Hash      |     60.68     |     5.23 GiB |
 +------------------------------+-----------------+---------------+--------------+
 ```
 
@@ -238,15 +238,15 @@ Key type: Int64
 Keys size: 99997497
 Unique keys size: 17630976
 +------------------------------+-----------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table                   | Hash Function   | Elapsed (sec) | Memory Usage |
 +------------------------------+-----------------+---------------+--------------+
-| ClickHouse HashMap | absl::Hash | 2.08 | 1.00 GiB |
-| absl::flat_hash_map | absl::Hash | 2.74 | 547.76 MiB |
-| tsl::hopscotch_map | absl::Hash | 3.58 | 771.81 MiB |
-| ankerl::unordered_dense::map | absl::Hash | 3.29 | 528.65 MiB |
-| ska::flat_hash_map | absl::Hash | 2.67 | 1.50 GiB |
-| ska::bytell_hash_map | absl::Hash | 3.29 | 547.76 MiB |
-| std::unordered_map | absl::Hash | 9.29 | 998.19 MiB |
+| ClickHouse HashMap           | absl::Hash      |      2.08     |     1.00 GiB |
+| absl::flat_hash_map          | absl::Hash      |      2.74     |   547.76 MiB |
+| tsl::hopscotch_map           | absl::Hash      |      3.58     |   771.81 MiB |
+| ankerl::unordered_dense::map | absl::Hash      |      3.29     |   528.65 MiB |
+| ska::flat_hash_map           | absl::Hash      |      2.67     |     1.50 GiB |
+| ska::bytell_hash_map         | absl::Hash      |      3.29     |   547.76 MiB |
+| std::unordered_map           | absl::Hash      |      9.29     |   998.19 MiB |
 +------------------------------+-----------------+---------------+--------------+
 ```
 
@@ -258,15 +258,15 @@ Key type: Int32
 Keys size: 99997497
 Unique keys size: 9040
 +------------------------------+-----------------+---------------+--------------+
-| Hash Table | Hash Function | Elapsed (sec) | Memory Usage |
+| Hash Table                   | Hash Function   | Elapsed (sec) | Memory Usage |
 +------------------------------+-----------------+---------------+--------------+
-| ClickHouse HashMap | absl::Hash | 0.17 | 4.50 MiB |
-| absl::flat_hash_map | absl::Hash | 0.32 | 4.06 MiB |
-| tsl::hopscotch_map | absl::Hash | 0.31 | 4.18 MiB |
-| ankerl::unordered_dense::map | absl::Hash | 0.54 | 3.87 MiB |
-| ska::flat_hash_map | absl::Hash | 0.21 | 4.51 MiB |
-| ska::bytell_hash_map | absl::Hash | 0.29 | 4.02 MiB |
-| std::unordered_map | absl::Hash | 0.64 | 4.07 MiB |
+| ClickHouse HashMap           | absl::Hash      |      0.17     |     4.50 MiB |
+| absl::flat_hash_map          | absl::Hash      |      0.32     |     4.06 MiB |
+| tsl::hopscotch_map           | absl::Hash      |      0.31     |     4.18 MiB |
+| ankerl::unordered_dense::map | absl::Hash      |      0.54     |     3.87 MiB |
+| ska::flat_hash_map           | absl::Hash      |      0.21     |     4.51 MiB |
+| ska::bytell_hash_map         | absl::Hash      |      0.29     |     4.02 MiB |
+| std::unordered_map           | absl::Hash      |      0.64     |     4.07 MiB |
 +------------------------------+-----------------+---------------+--------------+
 ```
 
