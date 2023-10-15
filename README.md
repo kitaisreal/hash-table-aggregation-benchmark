@@ -210,6 +210,7 @@ and files from benchmark are specified.
 All tests are run on c6a.4xlarge VM in AWS for X86 platform and on m7g.4xlarge for ARM platform with 128 GB gp2.
 
 Results for X86-64 on `c6a.4xlarge` instance for all hash tables with Abseil hash on `WatchID`, `UserID` and `RegionID` columns.
+For full results see [Results.md](Results.md).
 
 WatchID file:
 
@@ -271,7 +272,6 @@ Unique keys size: 9040
 +------------------------------+-----------------+---------------+--------------+
 ```
 
-Full results [Results.md].
 
 # How to add new hash table or hash function
 
