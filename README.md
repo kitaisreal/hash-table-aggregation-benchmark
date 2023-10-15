@@ -27,7 +27,7 @@ Additionally, for the aggregation scenario, you need to consider not only lookup
 ## Examples
 
 Benchmark itself is a `hash_table_aggregation_benchmark` binary that takes `hash_table` `hash_function` and `file` in Clickhouse
-[RowBinaryWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats#rowbinarywithnamesandtypes) format.
+[RowBinaryWithNamesAndTypes](https://clickhouse.com/docs/en/interfaces/formats#rowbinarywithnamesandtypes) format and runs in-memory aggregation.
 
 ```
 hash_table_aggregation_benchmark absl_hash_map absl_hash data/WatchID.bin
@@ -160,17 +160,10 @@ cd hash-table-aggregation-benchmark
 git submodule update --init --recursive
 ```
 
-Download benchmark data (new `data` folder will be created), all benchmark data takes around 20GB:
+Download benchmark data (new `data` folder will be created), all benchmark data takes around 20 GB:
 
 ```
 ./load_data.sh
-```
-
-After that you can check data files:
-```
-ls data/
-
-AdvEngineID.bin  clickhouse  CounterID.bin  hits.parquet  RegionID.bin  TraficSourceID.bin  URLHash.bin  UserID.bin  WatchID.bin
 ```
 
 Download python dependencies from `requirements.txt`:
@@ -179,18 +172,13 @@ Download python dependencies from `requirements.txt`:
 python3 -m pip install -r requirements.txt
 ```
 
-Build benchmark and add result binary to PATH:
+Build benchmark and add folder with result binary to PATH:
 
 ```
 cd build
 cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/clang++-15 -DCMAKE_C_COMPILER=/usr/bin/clang-15 -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make -j32
-```
-
-Add benchmark binary to PATH assuming you are in `build` folder:
-```
-cd src
-export PATH=`pwd`:$PATH
+export PATH=`pwd`/src:$PATH
 ```
 
 Run benchmark with different `--hash-tables`, `--hash-functions` and `--files` options. By default all hash tables, hash functions
@@ -221,7 +209,69 @@ and files from benchmark are specified.
 
 All tests are run on c6a.4xlarge VM in AWS for X86 platform and on m7g.4xlarge for ARM platform with 128 GB gp2.
 
-Full results can be found here. TODO: Link to Results.md
+Results for X86-64 on `c6a.4xlarge` instance for all hash tables with Abseil hash on `WatchID`, `UserID` and `RegionID` columns.
+
+WatchID file:
+
+```
+File: data/WatchID.bin
+Key type: Int64
+Keys size: 99997497
+Unique keys size: 99997493
++------------------------------+-----------------+---------------+--------------+
+| Hash Table                   | Hash Function   | Elapsed (sec) | Memory Usage |
++------------------------------+-----------------+---------------+--------------+
+| ClickHouse HashMap           | absl::Hash      |      6.79     |     4.00 GiB |
+| absl::flat_hash_map          | absl::Hash      |     10.24     |     2.13 GiB |
+| tsl::hopscotch_map           | absl::Hash      |     16.21     |     3.00 GiB |
+| ankerl::unordered_dense::map | absl::Hash      |     13.35     |     2.49 GiB |
+| ska::flat_hash_map           | absl::Hash      |     11.12     |     6.00 GiB |
+| ska::bytell_hash_map         | absl::Hash      |     15.11     |     2.13 GiB |
+| std::unordered_map           | absl::Hash      |     60.68     |     5.23 GiB |
++------------------------------+-----------------+---------------+--------------+
+```
+
+UserID file:
+
+```
+File: data/UserID.bin
+Key type: Int64
+Keys size: 99997497
+Unique keys size: 17630976
++------------------------------+-----------------+---------------+--------------+
+| Hash Table                   | Hash Function   | Elapsed (sec) | Memory Usage |
++------------------------------+-----------------+---------------+--------------+
+| ClickHouse HashMap           | absl::Hash      |      2.08     |     1.00 GiB |
+| absl::flat_hash_map          | absl::Hash      |      2.74     |   547.76 MiB |
+| tsl::hopscotch_map           | absl::Hash      |      3.58     |   771.81 MiB |
+| ankerl::unordered_dense::map | absl::Hash      |      3.29     |   528.65 MiB |
+| ska::flat_hash_map           | absl::Hash      |      2.67     |     1.50 GiB |
+| ska::bytell_hash_map         | absl::Hash      |      3.29     |   547.76 MiB |
+| std::unordered_map           | absl::Hash      |      9.29     |   998.19 MiB |
++------------------------------+-----------------+---------------+--------------+
+```
+
+RegionID file:
+
+```
+File: data/RegionID.bin
+Key type: Int32
+Keys size: 99997497
+Unique keys size: 9040
++------------------------------+-----------------+---------------+--------------+
+| Hash Table                   | Hash Function   | Elapsed (sec) | Memory Usage |
++------------------------------+-----------------+---------------+--------------+
+| ClickHouse HashMap           | absl::Hash      |      0.17     |     4.50 MiB |
+| absl::flat_hash_map          | absl::Hash      |      0.32     |     4.06 MiB |
+| tsl::hopscotch_map           | absl::Hash      |      0.31     |     4.18 MiB |
+| ankerl::unordered_dense::map | absl::Hash      |      0.54     |     3.87 MiB |
+| ska::flat_hash_map           | absl::Hash      |      0.21     |     4.51 MiB |
+| ska::bytell_hash_map         | absl::Hash      |      0.29     |     4.02 MiB |
+| std::unordered_map           | absl::Hash      |      0.64     |     4.07 MiB |
++------------------------------+-----------------+---------------+--------------+
+```
+
+Full results [Results.md].
 
 # How to add new hash table or hash function
 
