@@ -53,8 +53,12 @@ size_t getCurrentMemoryUsageInBytes()
 
 Column readColumnFromFile(std::string_view file_name)
 {
-    auto file_size = std::filesystem::file_size(file_name);
     std::ifstream stream(std::string(file_name), std::ios_base::binary);
+
+    stream.seekg(0, std::ios::end);
+    size_t file_size = stream.tellg();
+
+    stream.seekg(0, std::ios::beg);
 
     size_t read_bytes_size = 0;
 

@@ -14,7 +14,7 @@ set (CMAKE_C_STANDARD 11)
 set (CMAKE_C_EXTENSIONS ON)
 set (CMAKE_C_STANDARD_REQUIRED ON)
 
-set (COMPILER_FLAGS "${COMPILER_FLAGS} -stdlib=libc++ -mssse3 -msse4.1 -msse4.2 -mpclmul -mpopcnt -falign-functions=32 -mbranches-within-32B-boundaries -fno-omit-frame-pointer ")
+set (COMPILER_FLAGS "${COMPILER_FLAGS} -mssse3 -msse4.1 -msse4.2 -mpclmul -mpopcnt -falign-functions=32 -mbranches-within-32B-boundaries -fno-omit-frame-pointer ")
 
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
