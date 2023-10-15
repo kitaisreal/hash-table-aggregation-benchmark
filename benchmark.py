@@ -9,7 +9,7 @@ from prettytable import PrettyTable
 
 BENCHMARK_EXECUTABLE = "hash_table_aggregation_benchmark"
 
-MEASURE_RUNS = 3
+MEASURE_RUNS = 1
 
 FILES = [
     "data/WatchID.bin",
