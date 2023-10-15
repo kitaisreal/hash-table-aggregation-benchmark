@@ -205,7 +205,9 @@ Full results can be found here. TODO: Link to Results.md
 # How to add new hash table or hash function
 
 Add submodule with hash table or hash function to repository.
+
 Add new hash table in `src/HashTables.h` and update `benchmark.py`.
+
 Add new hash function in `src/HashFunctions.h` and update `benchmark.py`.
 
 # Contacts
