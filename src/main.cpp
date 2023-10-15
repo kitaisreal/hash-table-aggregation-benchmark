@@ -66,56 +66,6 @@ testForHashMapType(std::string_view hash_table_type, std::string_view hash_funct
         });
 }
 
-// template <typename Key>
-// static void NOINLINE testForHashMapType(const Key * data, size_t size, std::string_view method)
-// {
-//     if (method == "ch_hash_map_std_hash")
-//         test<Key, HashMap<Key, UInt64, StdHash<Key>>>(data, size, "ClickHouse HashMap Standard Hash");
-//     else if (method == "ch_hash_map_ch_hash")
-//         test<Key, HashMap<Key, UInt64, DefaultHash<Key>>>(data, size, "ClickHouse HashMap ClickHouse Hash");
-//     else if (method == "ch_hash_map_absl_hash")
-//         test<Key, HashMap<Key, UInt64, absl::Hash<Key>>>(data, size, "ClickHouse HashMap Abseil Hash");
-//     else if (method == "abseil_flat_hash_map_std_hash")
-//         test<Key, ::absl::flat_hash_map<Key, UInt64, StdHash<Key>>>(data, size, "Abseil HashMap Standard Hash");
-//     else if (method == "abseil_flat_hash_map_ch_hash")
-//         test<Key, ::absl::flat_hash_map<Key, UInt64, DefaultHash<Key>>>(data, size, "Abseil HashMap ClickHouse Hash");
-//     else if (method == "abseil_flat_hash_map_absl_hash")
-//         test<Key, ::absl::flat_hash_map<Key, UInt64, absl::Hash<Key>>>(data, size, "Abseil HashMap Abseil Hash");
-// else if (method == "hopscotch_hash_map_std_hash")
-//     test<Key, tsl::hopscotch_map<Key, UInt64, StdHash<Key>>>(data, size, "Tsl Hopscotch HashMap Standard Hash");
-//     else if (method == "hopscotch_hash_map_ch_hash")
-//         test<Key, tsl::hopscotch_map<Key, UInt64, DefaultHash<Key>>>(data, size, "Tsl Hopscotch HashMap ClickHouse Hash");
-//     else if (method == "hopscotch_hash_map_absl_hash")
-//         test<Key, tsl::hopscotch_map<Key, UInt64, absl::Hash<Key>>>(data, size, "Tsl Hopscotch HashMap Abseil Hash");
-// else if (method == "unordered_dence_std_hash")
-//     test<Key, ankerl::unordered_dense::map<Key, UInt64, StdHash<Key>>>(data, size, "ankerl::unordered_dense::map Standard Hash");
-// else if (method == "unordered_dence_ch_hash")
-//     test<Key, ankerl::unordered_dense::map<Key, UInt64, DefaultHash<Key>>>(data, size, "ankerl::unordered_dense::map ClickHouse Hash");
-// else if (method == "unordered_dence_absl_hash")
-//     test<Key, ankerl::unordered_dense::map<Key, UInt64, absl::Hash<Key>>>(data, size, "ankerl::unordered_dense::map Abseil Hash");
-// else if (method == "ska_flat_hash_map")
-//     test<Key, ska::flat_hash_map<Key, UInt64>>(data, size, "ska::flat_hash_map");
-// else if (method == "ska_bytell_hash_map")
-//     test<Key, ska::bytell_hash_map<Key, UInt64>>(data, size, "ska::bytell_hash_map");
-// else if (method == "std_hash_map_std_hash")
-//         test<Key, std::unordered_map<Key, UInt64>>(data, size, "std::unordered_map");
-//     else if (method == "std_hash_map_ch_hash")
-//         test<Key, std::unordered_map<Key, UInt64>>(data, size, "std::unordered_map with ClickHouse hash");
-//     else if (method == "std_hash_map_absl_hash")
-//         test<Key, std::unordered_map<Key, UInt64>>(data, size, "std::unordered_map with Abseil hash");
-//     else
-//         throw std::runtime_error("Unexpected hash map method " + std::string(method) + " passed");
-// }
-
-// template <typename Key>
-// static void NOINLINE testForHashMapType(const Key * data, size_t size, std::string_view hash_table, std::string_view hash)
-// {
-//     std::string hash_table_value = std::string(hash_table);
-//     hash_table_value += hash;
-//     testForHashMapType(data, size, hash_table_value);
-// }
-
-
 template <typename Key>
 static void NOINLINE testForKeyType(
     std::string_view hash_table_type,

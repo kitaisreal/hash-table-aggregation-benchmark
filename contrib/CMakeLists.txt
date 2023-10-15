@@ -24,8 +24,8 @@ target_include_directories(abseil_swiss_tables SYSTEM BEFORE INTERFACE ${FLAT_HA
 # Add hopscotch-map library
 add_subdirectory(hopscotch-map EXCLUDE_FROM_ALL)
 
-# Add unordered_dence library
-add_subdirectory(unordered_dence EXCLUDE_FROM_ALL)
+# Add unordered_dense library
+add_subdirectory(unordered_dense EXCLUDE_FROM_ALL)
 
 # Add flat_hash_map library
 

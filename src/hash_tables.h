@@ -7,7 +7,7 @@
 #include <ClickHouseHashTable/HashMap.h>
 #include <absl/container/flat_hash_map.h>
 #include <hopscotch-map/include/tsl/hopscotch_map.h>
-#include <unordered_dence/include/ankerl/unordered_dense.h>
+#include <unordered_dense/include/ankerl/unordered_dense.h>
 #include <flat_hash_map/bytell_hash_map.hpp>
 #include <flat_hash_map/flat_hash_map.hpp>
 
@@ -71,7 +71,7 @@ void dispatchHashTableType(std::string_view hash_table_type, Callback && callbac
         callback(AbseilHashTableType<Key, Hash>());
     else if (hash_table_type == "tsl_hopscotch_hash_map")
         callback(TslHopscotchHashTableType<Key, Hash>());
-    else if (hash_table_type == "ankerl_unordered_dence_hash_map")
+    else if (hash_table_type == "ankerl_unordered_dense_hash_map")
         callback(AnkerlUnorderedDenseHashTableType<Key, Hash>());
     else if (hash_table_type == "ska_flat_hash_map")
         callback(SkaFlatHashTableType<Key, Hash>());
