@@ -36,3 +36,7 @@ set(FLAT_HASH_MAP_HEADERS
   )
 
 add_library(flat_hash_map INTERFACE ${FLAT_HASH_MAP_HEADERS})
+
+# Add sparsehash library
+add_library(sparsehash INTERFACE)
+target_include_directories(sparsehash SYSTEM BEFORE INTERFACE "${PROJECT_SOURCE_DIR}/contrib/sparsehash-c11")

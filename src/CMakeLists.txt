@@ -5,4 +5,5 @@ target_link_libraries(hash_table_aggregation_benchmark PRIVATE
     abseil_swiss_tables
     hopscotch_map
     unordered_dense
-    flat_hash_map)
+    flat_hash_map
+    sparsehash)

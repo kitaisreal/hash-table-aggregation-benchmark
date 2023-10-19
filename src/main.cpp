@@ -61,7 +61,11 @@ testForHashMapType(std::string_view hash_table_type, std::string_view hash_funct
                 {
                     using HashTableType = std::decay_t<decltype(hash_table_type)>;
                     using HashTable = typename HashTableType::HashTable;
-                    test<Key, HashTable>(data, size, hash_table_type.description, hash_function_type.description);
+
+                    if constexpr (HashTableType::has_initialization)
+                        test<Key, HashTable>(data, size, hash_table_type.description, hash_function_type.description, HashTableType::initialize);
+                    else
+                        test<Key, HashTable>(data, size, hash_table_type.description, hash_function_type.description);
                 });
         });
 }

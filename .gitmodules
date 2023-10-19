@@ -10,3 +10,6 @@
 [submodule "contrib/unordered_dense"]
 	path = contrib/unordered_dense
 	url = git@github.com:martinus/unordered_dense.git
+[submodule "contrib/sparsehash-c11"]
+	path = contrib/sparsehash-c11
+	url = git@github.com:sparsehash/sparsehash-c11.git

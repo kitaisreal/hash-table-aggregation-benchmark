@@ -190,9 +190,9 @@ and files from the benchmark are specified.
 
 - [x] ClickHouse Hash Map (https://github.com/ClickHouse/ClickHouse)
 - [x] Google Abseil Hash Map (https://github.com/abseil/abseil-cpp)
-- [ ] Google Dense Hash Map (https://github.com/sparsehash/sparsehash)
+- [x] Google Dense Hash Map (https://github.com/sparsehash/sparsehash-c11)
 - [x] Tsl Hopscotch Map (https://github.com/Tessil/hopscotch-map)
-<!-- https://github.com/Tessil/robin-map -->
+- [ ] Tsl Robin Hood Map (https://github.com/Tessil/robin-map)
 - [x] Ankerl Unordered Dense Map (https://github.com/martinus/unordered_dense)
 - [x] Ska Flat Hash Map (https://github.com/skarupke/flat_hash_map)
 - [x] Ska Bytell Hash Map (https://github.com/skarupke/flat_hash_map)
