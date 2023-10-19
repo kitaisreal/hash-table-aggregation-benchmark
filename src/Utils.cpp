@@ -1,8 +1,5 @@
 #include "Utils.h"
 
-#include <iomanip>
-#include <vector>
-#include <chrono>
 #include <fstream>
 
 #include <unistd.h>
@@ -31,6 +28,15 @@ size_t readVarUInt(UInt64 & x, std::istream & istr)
 
 }
 
+size_t getPageSizeInBytes()
+{
+    Int64 page_size = sysconf(_SC_PAGESIZE);
+    if (page_size < 0)
+        return 0;
+
+    return page_size;
+}
+
 size_t getCurrentMemoryUsageInBytes()
 {
     std::ifstream stream("/proc/self/statm", std::ios_base::in);
@@ -38,17 +44,13 @@ size_t getCurrentMemoryUsageInBytes()
     if (!stream.is_open())
         return 0;
 
-    int64_t ignore = 0;
-    int64_t rss = 0;
+    Int64 ignore = 0;
+    Int64 rss = 0;
 
     stream >> ignore;
     stream >> rss;
 
-    Int64 page_size = sysconf(_SC_PAGESIZE);
-    if (page_size < 0)
-        return 0;
-
-    return rss * page_size;
+    return rss * getPageSizeInBytes();
 }
 
 Column readColumnFromFile(std::string_view file_name)

@@ -4,6 +4,8 @@
 #include <vector>
 #include "defines.h"
 
+size_t getPageSizeInBytes();
+
 size_t getCurrentMemoryUsageInBytes();
 
 struct Column

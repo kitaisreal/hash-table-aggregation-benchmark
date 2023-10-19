@@ -3,10 +3,10 @@
 #include <iostream>
 #include <vector>
 
-#include "defines.h"
-#include "Utils.h"
 #include "HashFunctions.h"
 #include "HashTables.h"
+#include "Utils.h"
+#include "defines.h"
 
 template <typename Map>
 struct VoidInitialization
@@ -19,16 +19,17 @@ void NOINLINE test(const Key * data, size_t size, std::string_view hash_table, s
 {
     auto start = std::chrono::steady_clock::now();
     size_t map_size = 0;
-    size_t memory_usage = 0;
+    size_t memory_usage = getCurrentMemoryUsageInBytes();
 
     {
         Map map;
         init_func(map);
 
-        for (const auto * end = data + size; data < end; ++data)
-            ++map[*data];
+        const auto * end = data + size;
+        for (const auto * current = data; current < end; ++current)
+            ++map[*current];
 
-        memory_usage = getCurrentMemoryUsageInBytes() - (sizeof(Key) * size);
+        memory_usage = std::max(getCurrentMemoryUsageInBytes() - memory_usage, getPageSizeInBytes());
         map_size = map.size();
     }
 
@@ -63,7 +64,8 @@ testForHashMapType(std::string_view hash_table_type, std::string_view hash_funct
                     using HashTable = typename HashTableType::HashTable;
 
                     if constexpr (HashTableType::has_initialization)
-                        test<Key, HashTable>(data, size, hash_table_type.description, hash_function_type.description, HashTableType::initialize);
+                        test<Key, HashTable>(
+                            data, size, hash_table_type.description, hash_function_type.description, HashTableType::initialize);
                     else
                         test<Key, HashTable>(data, size, hash_table_type.description, hash_function_type.description);
                 });
