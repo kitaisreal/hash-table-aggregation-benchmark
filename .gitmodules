@@ -1,0 +1,12 @@
+[submodule "contrib/abseil-cpp"]
+	path = contrib/abseil-cpp
+	url = git@github.com:abseil/abseil-cpp.git
+[submodule "contrib/flat_hash_map"]
+	path = contrib/flat_hash_map
+	url = git@github.com:skarupke/flat_hash_map.git
+[submodule "contrib/hopscotch-map"]
+	path = contrib/hopscotch-map
+	url = git@github.com:Tessil/hopscotch-map.git
+[submodule "contrib/unordered_dense"]
+	path = contrib/unordered_dense
+	url = git@github.com:martinus/unordered_dense.git

@@ -1,0 +1,16 @@
+/build
+/build_*
+/build-*
+
+# Python cache
+*.pyc
+__pycache__
+*.pytest_cache
+.mypy_cache
+
+# clangd cache
+/.cache
+
+/compile_commands.json
+
+/data
