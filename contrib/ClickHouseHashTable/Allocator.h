@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include <cstring>
+#include <stdexcept>
 
 template <bool clear_memory_, bool mmap_populate = false>
 class Allocator;
