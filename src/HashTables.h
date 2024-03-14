@@ -10,8 +10,30 @@
 #include <hopscotch-map/include/tsl/hopscotch_map.h>
 #include <sparsehash/dense_hash_map>
 #include <unordered_dense/include/ankerl/unordered_dense.h>
+#include <parallel_hashmap/phmap.h>
 
 #include "defines.h"
+
+
+template <typename Key, typename Hash>
+struct PhmapHashTableType
+{
+    using HashTable = phmap::flat_hash_map<Key, UInt64, Hash>;
+    static constexpr std::string_view description = "Phmap HashMap";
+    static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
+};
+
+
+template <typename Key, typename Hash>
+struct PhmapHashTableTypeOpt
+{
+    using HashTable = phmap::flat_hash_map<Key, UInt64, Hash>;
+    static constexpr std::string_view description = "Opt Phmap HashMap";
+    static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = true;
+};
+
 
 template <typename Key, typename Hash>
 struct ClickHouseHashTableType
@@ -19,6 +41,7 @@ struct ClickHouseHashTableType
     using HashTable = HashMap<Key, UInt64, Hash>;
     static constexpr std::string_view description = "ClickHouse HashMap";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash>
@@ -27,6 +50,7 @@ struct AbseilHashTableType
     using HashTable = ::absl::flat_hash_map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "absl::flat_hash_map";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash>
@@ -35,6 +59,7 @@ struct DenseHashTableType
     using HashTable = ::google::dense_hash_map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "google::dense_hash_map";
     static constexpr bool has_initialization = true;
+    static constexpr bool phmap_opt = false;
 
     static void initialize(HashTable & hash_table) { hash_table.set_empty_key(std::numeric_limits<Key>::max()); }
 };
@@ -45,6 +70,7 @@ struct TslHopscotchHashTableType
     using HashTable = tsl::hopscotch_map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "tsl::hopscotch_map";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash>
@@ -53,6 +79,7 @@ struct AnkerlUnorderedDenseHashTableType
     using HashTable = ankerl::unordered_dense::map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "ankerl::unordered_dense::map";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash>
@@ -61,6 +88,7 @@ struct SkaFlatHashTableType
     using HashTable = ska::flat_hash_map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "ska::flat_hash_map";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash>
@@ -69,6 +97,7 @@ struct SkaBytellHashTableType
     using HashTable = ska::bytell_hash_map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "ska::bytell_hash_map";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash>
@@ -77,12 +106,17 @@ struct StandardHashTableType
     using HashTable = std::unordered_map<Key, UInt64, Hash>;
     static constexpr std::string_view description = "std::unordered_map";
     static constexpr bool has_initialization = false;
+    static constexpr bool phmap_opt = false;
 };
 
 template <typename Key, typename Hash, typename Callback>
 void dispatchHashTableType(std::string_view hash_table_type, Callback && callback)
 {
-    if (hash_table_type == "ch_hash_map")
+    if (hash_table_type == "parallel_phmap")
+        callback(PhmapHashTableType<Key, Hash>());
+    else if (hash_table_type == "opt_parallel_phmap")
+        callback(PhmapHashTableTypeOpt<Key, Hash>());
+    else if (hash_table_type == "ch_hash_map")
         callback(ClickHouseHashTableType<Key, Hash>());
     else if (hash_table_type == "absl_hash_map")
         callback(AbseilHashTableType<Key, Hash>());

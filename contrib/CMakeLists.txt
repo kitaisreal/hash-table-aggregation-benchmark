@@ -37,6 +37,14 @@ set(FLAT_HASH_MAP_HEADERS
 
 add_library(flat_hash_map INTERFACE ${FLAT_HASH_MAP_HEADERS})
 
+# Add parallel_hashmap library
+# add_subdirectory(parallel-hashmap EXCLUDE_FROM_ALL)
+
+set(PARALLEL_HASHMAP_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/contrib/parallel-hashmap/")
+
+add_library(parallel-hashmap INTERFACE ${PARALLEL_HASHMAP_INCLUDE_DIR})
+target_include_directories(parallel-hashmap SYSTEM BEFORE INTERFACE "${PROJECT_SOURCE_DIR}/contrib/parallel-hashmap/")
+
 # Add sparsehash library
 add_library(sparsehash INTERFACE)
 target_include_directories(sparsehash SYSTEM BEFORE INTERFACE "${PROJECT_SOURCE_DIR}/contrib/sparsehash-c11")

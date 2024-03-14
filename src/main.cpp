@@ -45,6 +45,73 @@ void NOINLINE test(const Key * data, size_t size, std::string_view hash_table, s
     std::cout << "Memory usage: " << memory_usage << "\n";
 }
 
+template <typename Key, typename Map, typename InitFunc = VoidInitialization<Map>>
+void NOINLINE testopt(const Key * data, size_t size, std::string_view hash_table, std::string_view hash_function, InitFunc init_func = {})
+{
+    auto start = std::chrono::steady_clock::now();
+    size_t map_size = 0;
+    size_t memory_usage = getCurrentMemoryUsageInBytes();
+    static constexpr size_t PREFETCH = 16;
+    static constexpr size_t BLOCK = 512;
+    std::vector<size_t> hash_values(BLOCK);
+
+    {
+        Map map;
+        init_func(map);
+        // const auto * end = data + size;
+        size_t i = 0;
+        for (; (i + BLOCK) < size; i += BLOCK)
+        {
+            for (size_t j = 0; j < BLOCK; j++) {
+                size_t hashval = map.hash_function()(data[i + j]);
+                hash_values[j] = hashval;
+            }
+
+            for (size_t j = 0, k = PREFETCH; j < BLOCK; j++, k++) {
+                if (k < BLOCK) {
+                    map.prefetch_hash(hash_values[k]);
+                }
+                map.lazy_emplace_with_hash(data[i + j], hash_values[j], [&](const auto& ctor) {
+                    ctor(data[i + j], 1);
+                });
+            }
+        }
+
+        if (i <  size)
+        {
+            for (size_t j = 0; j < (size - i); j++) {
+                size_t hashval = map.hash_function()(data[i + j]);
+                hash_values[j] = hashval;
+            }
+
+            for (size_t j = 0, k = PREFETCH; j < (size - i); j++, k++) {
+                if (k < (size - i)) {
+                    map.prefetch_hash(hash_values[k]);
+                }
+                map.lazy_emplace_with_hash(data[i + j], hash_values[j], [&](const auto& ctor) {
+                    ctor(data[i + j], 1);
+                });
+                // ++map[data[i + j]];
+                // map.emplace_with_hash(hash_values[j], data[i + j]);
+            }
+        }
+
+        memory_usage = std::max(getCurrentMemoryUsageInBytes() - memory_usage, getPageSizeInBytes());
+        map_size = map.size();
+    }
+
+    auto finish = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start);
+    double elapsed_seconds = static_cast<double>(duration.count()) / 1000000000ULL;
+
+    std::cout << "Hash table: " << hash_table << '\n';
+    std::cout << "Hash function: " << hash_function << '\n';
+    std::cout << "Hash table size: " << map_size << '\n';
+
+    std::cout << "Elapsed: " << elapsed_seconds << " (" << static_cast<size_t>(size / elapsed_seconds) << " elem/sec.) " << '\n';
+    std::cout << "Memory usage: " << memory_usage << "\n";
+}
+
 template <typename Key>
 static void NOINLINE
 testForHashMapType(std::string_view hash_table_type, std::string_view hash_function_type, const Key * data, size_t size)
@@ -66,6 +133,9 @@ testForHashMapType(std::string_view hash_table_type, std::string_view hash_funct
                     if constexpr (HashTableType::has_initialization)
                         test<Key, HashTable>(
                             data, size, hash_table_type.description, hash_function_type.description, HashTableType::initialize);
+                    else if constexpr (HashTableType::phmap_opt)
+                        testopt<Key, HashTable>(
+                            data, size, hash_table_type.description, hash_function_type.description);
                     else
                         test<Key, HashTable>(data, size, hash_table_type.description, hash_function_type.description);
                 });
