@@ -24,6 +24,8 @@ FILES = [
 HASH_FUNCTIONS = ["std_hash", "ch_hash", "absl_hash"]
 
 HASH_TABLES = [
+    "parallel_phmap",
+    "opt_parallel_phmap",
     "ch_hash_map",
     "absl_hash_map",
     "google_dense_hash_map",

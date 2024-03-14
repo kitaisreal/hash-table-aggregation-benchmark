@@ -13,3 +13,6 @@
 [submodule "contrib/sparsehash-c11"]
 	path = contrib/sparsehash-c11
 	url = git@github.com:sparsehash/sparsehash-c11.git
+[submodule "contrib/parallel-hashmap"]
+	path = contrib/parallel-hashmap
+	url = git@github.com:greg7mdp/parallel-hashmap.git
